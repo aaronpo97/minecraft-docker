@@ -3,17 +3,17 @@ services:
     image: itzg/minecraft-server:latest
     tty: true
     stdin_open: true
+    restart: unless-stopped
     ports:
       - "25565:25565"
-      - "25575:25575"
     environment:
       EULA: "TRUE"
       TYPE: "FABRIC"
       VERSION: "1.21.11"
-      MEMORY: "4G"
-      JAVA_OPTS: "-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1HeapRegionSize=8M"
-      RCON_ENABLED: "true"
-      RCON_PASSWORD: "${RCON_PASSWORD}"
-      RCON_PORT: 25575
+      MEMORY: "6G"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      MODRINTH_PROJECTS: "fabric-api,lithium,appleskin,clumps,ferrite-core,tree-harvester,rei"
+      MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
+      JVM_OPTS: "-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -Dusing.aikars.flags=https://mcflags.emc.gs"
     volumes:
       - ./data:/data
